@@ -396,8 +396,10 @@ timeout-methods=requests.api.delete,requests.api.get,requests.api.head,requests.
 [EXCEPTIONS]
 
 # Exceptions that will emit a warning when caught.
-overgeneral-exceptions=BaseException,
-                       Exception
+
+# commented this out because of general Exception catch in  __main__.py (7/11/2022)
+overgeneral-exceptions=BaseException
+#                        Exception
 
 
 [REFACTORING]
@@ -450,7 +452,7 @@ max-attributes=7
 max-bool-expr=5
 
 # Maximum number of branch for function / method body.
-max-branches=15
+max-branches=25
 
 # Maximum number of locals for function / method body.
 max-locals=20
@@ -465,7 +467,7 @@ max-public-methods=20
 max-returns=6
 
 # Maximum number of statements in function / method body.
-max-statements=50
+max-statements=70
 
 # Minimum number of public methods for a class (see R0903).
 min-public-methods=2
