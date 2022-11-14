@@ -396,10 +396,8 @@ timeout-methods=requests.api.delete,requests.api.get,requests.api.head,requests.
 [EXCEPTIONS]
 
 # Exceptions that will emit a warning when caught.
-
-# commented this out because of general Exception catch in  __main__.py (7/11/2022)
-overgeneral-exceptions=BaseException
-#                        Exception
+overgeneral-exceptions=BaseException,
+                       Exception
 
 
 [REFACTORING]
