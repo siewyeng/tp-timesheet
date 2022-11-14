@@ -22,6 +22,7 @@ class TpException(Exception):
     Exceptions to be raised, particularly when docker or selenium processes fail
     """
 
+
 # pylint: enable=unnecessary-pass
 
 
@@ -181,7 +182,7 @@ was not found by Selenium"
                 docker_handler.rm_container()
         # pylint: disable=unused-variable
         except NameError as clean_exception:
-            notification_text="Ran into an unexpected error while attempting to clean up docker container"
+            notification_text = "Ran into an unexpected error while attempting to clean up docker container"
             logger.critical(clean_exception, exc_info=True)
             os.system(
                 f"""osascript -e 'display dialog "{notification_text}" with title "TP Timesheet" buttons "OK" \
@@ -189,7 +190,6 @@ was not found by Selenium"
             )
             raise TpException(notification_text) from clean_exception
         # pylint: enable=unused-variable
-
 
 
 if __name__ == "__main__":
