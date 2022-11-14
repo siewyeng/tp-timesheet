@@ -22,9 +22,6 @@ class TpException(Exception):
     Exceptions to be raised, particularly when docker or selenium processes fail
     """
 
-    pass
-
-
 # pylint: enable=unnecessary-pass
 
 
@@ -84,9 +81,6 @@ def parse_args():
 
 
 def run():
-    # pylint: disable=line-too-long
-    # pylint: disable=unused-variable
-    # pylint: disable=broad-except
     """Entry point"""
     args = parse_args()
     notification_text = None
@@ -169,6 +163,7 @@ def run():
             notification_text = "⚠️ TP-timesheet was not submitted successfully. An element on the url \
 was not found by Selenium"
             raise TpException(notification_text) from s_exception
+    # pylint: disable=broad-except
     except Exception as gen_exception:
         logger.critical(gen_exception, exc_info=True)
         if not notification_text:
@@ -178,18 +173,24 @@ was not found by Selenium"
                     default button "OK" with icon 2'"""
         )
         sys.exit(1)
+    # pylint: enable=broad-except
     finally:
         try:
             logger.debug("Cleaning up docker container")
             if docker_handler.container is not None:
                 docker_handler.rm_container()
-        except Exception as clean_exception:
-            pass
+        # pylint: disable=unused-variable
+        except NameError as clean_exception:
+            notification_text="Ran into an unexpected error while attempting to clean up docker container"
+            logger.critical(clean_exception, exc_info=True)
+            os.system(
+                f"""osascript -e 'display dialog "{notification_text}" with title "TP Timesheet" buttons "OK" \
+                    default button "OK" with icon 2'"""
+            )
+            raise TpException(notification_text) from clean_exception
         # pylint: enable=unused-variable
 
 
-# pylint: enable=broad-except
-# pylint: enable=line-too-long
 
 if __name__ == "__main__":
     run()
